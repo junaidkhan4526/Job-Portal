@@ -1,0 +1,2223 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jobportal - Apna Dream Job Dhundho</title>
+    <meta
+      name="description"
+      content="India ka #1 Job Portal - Thousands of jobs from top companies. Find your perfect career opportunity today."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  </head>
+  <body>
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-inner">
+          <a class="nav-logo" href="#" data-page="home">
+            <div class="nav-logo-icon"><i class="fas fa-hive"></i></div>
+            <div class="nav-logo-text">Job<span>Portal</span></div>
+          </a>
+          <div class="nav-links">
+            <a class="nav-link active" data-page="home">Home</a>
+            <a class="nav-link" data-page="jobs">Browse Jobs</a>
+            <a class="nav-link" data-page="about">About Us</a>
+            <a class="nav-link" data-page="contact">Contact</a>
+            <a
+              class="nav-link"
+              id="dash-link"
+              data-page="dashboard"
+              style="display: none"
+              >Dashboard</a
+            >
+          </div>
+          <div class="nav-actions">
+            <div id="auth-btns" style="display: flex; gap: 8px">
+              <button
+                class="btn btn-ghost btn-sm"
+                onclick="openModal('auth-modal')"
+              >
+                <i class="fas fa-sign-in-alt"></i> Login
+              </button>
+              <button
+                class="btn btn-primary btn-sm"
+                onclick="
+                  openModal('auth-modal');
+                  switchAuthTab('register');
+                "
+              >
+                <i class="fas fa-user-plus"></i> Register
+              </button>
+            </div>
+            <div id="user-menu" class="hidden">
+              <div
+                class="nav-user"
+                onclick="
+                  navigateTo('dashboard');
+                  loadDashboard();
+                  document.getElementById('dash-link').style.display = 'block';
+                "
+              >
+                <div class="nav-user-avatar" id="user-avatar-nav">U</div>
+                <span
+                  id="user-name-nav"
+                  style="font-size: 14px; font-weight: 600"
+                ></span>
+                <i
+                  class="fas fa-chevron-down"
+                  style="font-size: 11px; color: var(--text-secondary)"
+                ></i>
+              </div>
+              <button
+                class="btn btn-ghost btn-sm"
+                onclick="logout()"
+                style="margin-left: 8px"
+              >
+                <i class="fas fa-sign-out-alt"></i>
+              </button>
+            </div>
+            <div class="hamburger" onclick="toggleMobileNav()">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div
+      id="mobile-nav"
+      style="
+        display: none;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        padding: 16px;
+        position: sticky;
+        top: 70px;
+        z-index: 999;
+      "
+    >
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <a class="nav-link" data-page="home" style="display: block">🏠 Home</a>
+        <a class="nav-link" data-page="jobs" style="display: block"
+          >💼 Browse Jobs</a
+        >
+        <a class="nav-link" data-page="about" style="display: block"
+          >ℹ️ About</a
+        >
+        <a class="nav-link" data-page="contact" style="display: block"
+          >📞 Contact</a
+        >
+      </div>
+    </div>
+
+    <!-- ============================================================
+     PAGE SECTIONS
+============================================================ -->
+
+    <!-- ===== PAGE: HOME ===== -->
+    <div id="page-home" class="page-section active">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <i class="fas fa-bolt"></i> India's Fastest Growing Job Portal
+              </div>
+              <h1 class="hero-title">Find Your <span>Dream Job</span> Today</h1>
+              <p class="hero-subtitle">
+                Thousands of jobs from India's top companies. Apply in seconds
+                and get hired faster than ever before.
+              </p>
+
+              <div class="hero-search-box">
+                <div class="hero-search-field" style="flex: 2">
+                  <i class="fas fa-search"></i>
+                  <input
+                    type="text"
+                    id="hero-search-input"
+                    placeholder="Job title, skills, keywords..."
+                  />
+                </div>
+                <div class="hero-search-divider"></div>
+                <div class="hero-search-field">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <input
+                    type="text"
+                    id="hero-loc-input"
+                    placeholder="City, State..."
+                  />
+                </div>
+                <button
+                  class="btn btn-primary"
+                  id="hero-search-btn"
+                  style="white-space: nowrap"
+                >
+                  <i class="fas fa-search"></i> Search Jobs
+                </button>
+              </div>
+
+              <div class="hero-tags">
+                <span
+                  class="hero-tag"
+                  onclick="
+                    document.getElementById('hero-search-input').value =
+                      'PHP Developer';
+                    document.getElementById('hero-search-btn').click();
+                  "
+                  >PHP Developer</span
+                >
+                <span
+                  class="hero-tag"
+                  onclick="
+                    document.getElementById('hero-search-input').value =
+                      'React.js';
+                    document.getElementById('hero-search-btn').click();
+                  "
+                  >React.js</span
+                >
+                <span
+                  class="hero-tag"
+                  onclick="
+                    document.getElementById('hero-search-input').value =
+                      'Digital Marketing';
+                    document.getElementById('hero-search-btn').click();
+                  "
+                  >Digital Marketing</span
+                >
+                <span
+                  class="hero-tag"
+                  onclick="
+                    document.getElementById('hero-search-input').value =
+                      'UI/UX';
+                    document.getElementById('hero-search-btn').click();
+                  "
+                  >UI/UX Designer</span
+                >
+                <span
+                  class="hero-tag"
+                  onclick="
+                    document.getElementById('hero-search-input').value =
+                      'Finance';
+                    document.getElementById('hero-search-btn').click();
+                  "
+                  >Finance</span
+                >
+              </div>
+
+              <div class="hero-stats">
+                <div class="hero-stat">
+                  <div class="hero-stat-num" id="stat-jobs">0</div>
+                  <div class="hero-stat-label">Live Jobs</div>
+                </div>
+                <div class="hero-stat">
+                  <div class="hero-stat-num" id="stat-companies">0</div>
+                  <div class="hero-stat-label">Companies</div>
+                </div>
+                <div class="hero-stat">
+                  <div class="hero-stat-num" id="stat-seekers">0</div>
+                  <div class="hero-stat-label">Job Seekers</div>
+                </div>
+                <div class="hero-stat">
+                  <div class="hero-stat-num" id="stat-placed">0</div>
+                  <div class="hero-stat-label">People Hired</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual">
+              <div class="hero-card-float">
+                <div class="hero-card-company">
+                  <div class="hero-card-logo">T</div>
+                  <div>
+                    <div class="hero-card-title">Senior PHP Developer</div>
+                    <div class="hero-card-sub">TechCorp India • Delhi</div>
+                  </div>
+                </div>
+                <div class="hero-card-tags">
+                  <span class="badge badge-info">Full-time</span>
+                  <span class="badge badge-success">₹60K-1L/mo</span>
+                  <span class="badge badge-purple">Hybrid</span>
+                </div>
+              </div>
+              <div
+                class="hero-card-float"
+                style="
+                  position: absolute;
+                  bottom: -40px;
+                  right: -20px;
+                  animation-delay: 2s;
+                  width: 220px;
+                "
+              >
+                <div
+                  style="
+                    font-size: 12px;
+                    color: var(--text-secondary);
+                    margin-bottom: 8px;
+                  "
+                >
+                  🎉 New Applicant!
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px">
+                  <div
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      border-radius: 50%;
+                      background: linear-gradient(
+                        135deg,
+                        var(--accent),
+                        #00a884
+                      );
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: white;
+                      font-weight: 700;
+                    "
+                  >
+                    A
+                  </div>
+                  <div>
+                    <div style="font-weight: 700; font-size: 13px">
+                      Aisha Khan
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-secondary)">
+                      Just applied ✓
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORIES -->
+      <section style="background: white">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-tag">
+              <i class="fas fa-th-large"></i> Categories
+            </div>
+            <h2 class="section-title">Popular Job Categories</h2>
+            <p class="section-subtitle">
+              Apni industry choose karein aur related jobs dekhein
+            </p>
+          </div>
+          <div class="categories-grid" id="home-categories">
+            <!-- Loaded via JS -->
+            <div class="loading-overlay" style="grid-column: 1/-1">
+              <div class="spinner spinner-dark"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED JOBS -->
+      <section>
+        <div class="container">
+          <div class="section-header">
+            <div class="section-tag"><i class="fas fa-star"></i> Featured</div>
+            <h2 class="section-title">Featured Job Openings</h2>
+            <p class="section-subtitle">
+              Top companies ke best opportunities explore karein
+            </p>
+          </div>
+          <div class="jobs-grid" id="featured-jobs-grid">
+            <div class="loading-overlay" style="grid-column: 1/-1">
+              <div class="spinner spinner-dark"></div>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 40px">
+            <button class="btn btn-outline btn-lg" data-page="jobs">
+              <i class="fas fa-briefcase"></i> All Jobs Dekhein
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section style="background: white">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-tag">
+              <i class="fas fa-question-circle"></i> How It Works
+            </div>
+            <h2 class="section-title">Itna Easy Hai Job Dhundna!</h2>
+            <p class="section-subtitle">
+              Sirf 4 simple steps mein apni dream job pao
+            </p>
+          </div>
+          <div class="steps-grid">
+            <div class="step-card slide-up">
+              <div class="step-number">1</div>
+              <h3 class="step-title">Account Banao</h3>
+              <p class="step-desc">
+                Free mein register karo aur apna profile complete karo apne
+                skills aur experience ke saath.
+              </p>
+            </div>
+            <div class="step-card slide-up" style="animation-delay: 0.1s">
+              <div class="step-number">2</div>
+              <h3 class="step-title">Job Search Karo</h3>
+              <p class="step-desc">
+                Thousands of jobs mein se apni marzi ki job dhundho filters use
+                karke.
+              </p>
+            </div>
+            <div class="step-card slide-up" style="animation-delay: 0.2s">
+              <div class="step-number">3</div>
+              <h3 class="step-title">Apply Karo</h3>
+              <p class="step-desc">
+                Ek click mein apply karo apna cover letter aur resume ke saath.
+              </p>
+            </div>
+            <div class="step-card slide-up" style="animation-delay: 0.3s">
+              <div class="step-number">4</div>
+              <h3 class="step-title">Hired Ho Jao!</h3>
+              <p class="step-desc">
+                Interview de, offer accept karo, aur apni dream job join karo!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="testimonials-bg">
+        <div class="container">
+          <div class="section-header">
+            <div
+              class="section-tag"
+              style="background: rgba(255, 255, 255, 0.1); color: white"
+            >
+              <i class="fas fa-quote-left"></i> Testimonials
+            </div>
+            <h2 class="section-title" style="color: white">
+              Humara Success Story
+            </h2>
+            <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.7)">
+              Unke baare mein suno jinhone JobHive se apna career banaya
+            </p>
+          </div>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">
+                "JobHive ne meri zindagi badal di! 2 hafte mein mujhe perfect
+                job mili. Interview process bahut smooth tha aur company bhi
+                ekdam sahi hai."
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">R</div>
+                <div>
+                  <div class="testimonial-name">Rahul Verma</div>
+                  <div class="testimonial-role">
+                    Full Stack Developer, Delhi
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <p class="testimonial-text">
+                "As an employer, JobHive ne humein best candidates bheje.
+                Platform use karna bahut easy hai aur results amazing hain.
+                Highly recommended!"
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">P</div>
+                <div>
+                  <div class="testimonial-name">Priya Sharma</div>
+                  <div class="testimonial-role">HR Manager, TechCorp India</div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★☆</div>
+              <p class="testimonial-text">
+                "Fresher hone ke bawajood mujhe acchi company mein placement
+                mili. Dashboard se application status track karna bahut helpful
+                tha."
+              </p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">A</div>
+                <div>
+                  <div class="testimonial-name">Ayesha Khan</div>
+                  <div class="testimonial-role">UI/UX Designer, Bangalore</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-section">
+        <div class="container">
+          <h2>Ready Hai Apna Career Start Karne Ke Liye?</h2>
+          <p>
+            Lakhon job seekers aur employers ka trusted platform. Aaj hi join
+            karo!
+          </p>
+          <div class="cta-btns">
+            <button
+              class="btn btn-white btn-lg"
+              onclick="
+                openModal('auth-modal');
+                switchAuthTab('register');
+              "
+            >
+              <i class="fas fa-user-plus"></i> Job Seeker Register
+            </button>
+            <button
+              class="btn btn-outline-white btn-lg"
+              onclick="
+                openModal('auth-modal');
+                switchAuthTab('register');
+              "
+            >
+              <i class="fas fa-building"></i> Employer Register
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- END HOME PAGE -->
+
+    <!-- ===== PAGE: JOBS ===== -->
+    <div id="page-jobs" class="page-section" style="display: none">
+      <div class="page-hero">
+        <div class="container">
+          <div class="breadcrumb">
+            <span>Home</span>
+            <i class="fas fa-chevron-right" style="font-size: 10px"></i> Browse
+            Jobs
+          </div>
+          <h1>Browse All Jobs</h1>
+          <p>Apni perfect job dhundho thousands of listings mein se</p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="jobs-page">
+          <!-- Sidebar Filter -->
+          <aside class="filter-sidebar">
+            <div class="filter-header">
+              <h3>
+                <i
+                  class="fas fa-filter"
+                  style="color: var(--primary); margin-right: 8px"
+                ></i
+                >Filters
+              </h3>
+              <button class="btn btn-ghost btn-sm" onclick="clearFilters()">
+                Clear All
+              </button>
+            </div>
+            <div class="filter-body">
+              <div class="filter-section">
+                <h4>Category</h4>
+                <select
+                  class="form-control"
+                  id="filter-category"
+                  onchange="
+                    jobsOffset = 0;
+                    loadJobs();
+                  "
+                >
+                  <option value="">All Categories</option>
+                </select>
+              </div>
+              <div class="filter-section">
+                <h4>Job Type</h4>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="job_type"
+                    value="Full-time"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Full-time</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="job_type"
+                    value="Part-time"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Part-time</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="job_type"
+                    value="Contract"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Contract</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="job_type"
+                    value="Internship"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Internship</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="job_type"
+                    value="Freelance"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Freelance</label>
+                </div>
+              </div>
+              <div class="filter-section">
+                <h4>Work Mode</h4>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="work_mode"
+                    value="On-site"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>On-site</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="work_mode"
+                    value="Remote"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Remote</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="checkbox"
+                    name="work_mode"
+                    value="Hybrid"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Hybrid</label>
+                </div>
+              </div>
+              <div class="filter-section">
+                <h4>Experience Level</h4>
+                <div class="filter-option">
+                  <input
+                    type="radio"
+                    name="experience"
+                    value="Fresher"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>Fresher</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="radio"
+                    name="experience"
+                    value="1-2 Years"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>1-2 Years</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="radio"
+                    name="experience"
+                    value="3-5 Years"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>3-5 Years</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="radio"
+                    name="experience"
+                    value="5+ Years"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>5+ Years</label>
+                </div>
+                <div class="filter-option">
+                  <input
+                    type="radio"
+                    name="experience"
+                    value="10+ Years"
+                    onchange="
+                      jobsOffset = 0;
+                      loadJobs();
+                    "
+                  /><label>10+ Years</label>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Jobs Main -->
+          <div class="jobs-main">
+            <div class="search-bar">
+              <div class="search-input-wrap">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="job-search"
+                  placeholder="Job title, skills, keywords..."
+                  onkeyup="
+                    if (event.key === 'Enter') {
+                      jobsOffset = 0;
+                      loadJobs();
+                    }
+                  "
+                />
+              </div>
+              <div class="search-input-wrap">
+                <i class="fas fa-map-marker-alt"></i>
+                <input
+                  type="text"
+                  id="loc-search"
+                  placeholder="Location..."
+                  onkeyup="
+                    if (event.key === 'Enter') {
+                      jobsOffset = 0;
+                      loadJobs();
+                    }
+                  "
+                />
+              </div>
+              <button
+                class="btn btn-primary"
+                onclick="
+                  jobsOffset = 0;
+                  loadJobs();
+                "
+              >
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+            <div class="jobs-topbar">
+              <div class="jobs-count" id="jobs-count-text">Loading jobs...</div>
+              <select
+                class="form-control"
+                style="width: auto"
+                onchange="
+                  jobsOffset = 0;
+                  loadJobs();
+                "
+              >
+                <option>Sort: Newest First</option>
+                <option>Sort: Featured</option>
+              </select>
+            </div>
+            <div class="jobs-grid" id="jobs-grid">
+              <div class="loading-overlay" style="grid-column: 1/-1">
+                <div class="spinner spinner-dark"></div>
+              </div>
+            </div>
+            <div style="text-align: center; margin-top: 32px">
+              <button
+                id="load-more-btn"
+                class="btn btn-outline btn-lg"
+                onclick="loadMoreJobs()"
+                style="display: none"
+              >
+                <i class="fas fa-plus"></i> Load More Jobs
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END JOBS PAGE -->
+
+    <!-- ===== PAGE: JOB DETAIL ===== -->
+    <div id="page-job-detail" class="page-section" style="display: none">
+      <div class="page-hero" style="padding: 40px 0">
+        <div class="container">
+          <div class="breadcrumb">
+            <a
+              style="color: rgba(255, 255, 255, 0.6); cursor: pointer"
+              data-page="home"
+              >Home</a
+            >
+            <i class="fas fa-chevron-right" style="font-size: 10px"></i>
+            <a
+              style="color: rgba(255, 255, 255, 0.6); cursor: pointer"
+              data-page="jobs"
+              >Jobs</a
+            >
+            <i class="fas fa-chevron-right" style="font-size: 10px"></i>
+            <span>Job Details</span>
+          </div>
+          <h1 style="font-size: 28px">Job Details</h1>
+        </div>
+      </div>
+      <div class="container" id="job-detail-content">
+        <div class="loading-overlay">
+          <div class="spinner spinner-dark"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END JOB DETAIL PAGE -->
+
+    <!-- ===== PAGE: ABOUT ===== -->
+    <div id="page-about" class="page-section" style="display: none">
+      <div class="page-hero">
+        <div class="container">
+          <div class="breadcrumb">
+            <span>Home</span>
+            <i class="fas fa-chevron-right" style="font-size: 10px"></i> About
+            Us
+          </div>
+          <h1>About JobHive</h1>
+          <p>
+            India ka sabse trusted job portal - connecting talent with
+            opportunity
+          </p>
+        </div>
+      </div>
+      <div class="container" style="padding: 60px 20px">
+        <!-- Mission -->
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+          "
+        >
+          <div>
+            <div class="section-tag" style="margin-bottom: 16px">
+              <i class="fas fa-bullseye"></i> Our Mission
+            </div>
+            <h2 class="section-title" style="text-align: left">
+              Hum Kya Karte Hain?
+            </h2>
+            <p
+              style="
+                color: var(--text-secondary);
+                line-height: 1.9;
+                margin-bottom: 20px;
+              "
+            >
+              JobHive India ka leading job portal hai jo job seekers aur
+              employers ko ek platform pe connect karta hai. Hum believe karte
+              hain ki har talented person ko unka perfect job milna chahiye aur
+              har company ko best talent milna chahiye.
+            </p>
+            <p
+              style="
+                color: var(--text-secondary);
+                line-height: 1.9;
+                margin-bottom: 28px;
+              "
+            >
+              2024 mein launch hoke, humne already thousands of successful
+              placements kiye hain across India ke major cities aur industries
+              mein.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap">
+              <div
+                style="
+                  text-align: center;
+                  padding: 20px;
+                  background: var(--primary-light);
+                  border-radius: var(--radius-lg);
+                  min-width: 100px;
+                "
+              >
+                <div
+                  style="
+                    font-family: var(--font-display);
+                    font-size: 28px;
+                    font-weight: 800;
+                    color: var(--primary);
+                  "
+                >
+                  10K+
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary)">
+                  Active Jobs
+                </div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 20px;
+                  background: #ecfdf5;
+                  border-radius: var(--radius-lg);
+                  min-width: 100px;
+                "
+              >
+                <div
+                  style="
+                    font-family: var(--font-display);
+                    font-size: 28px;
+                    font-weight: 800;
+                    color: #059669;
+                  "
+                >
+                  500+
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary)">
+                  Companies
+                </div>
+              </div>
+              <div
+                style="
+                  text-align: center;
+                  padding: 20px;
+                  background: #eff6ff;
+                  border-radius: var(--radius-lg);
+                  min-width: 100px;
+                "
+              >
+                <div
+                  style="
+                    font-family: var(--font-display);
+                    font-size: 28px;
+                    font-weight: 800;
+                    color: #2563eb;
+                  "
+                >
+                  50K+
+                </div>
+                <div style="font-size: 13px; color: var(--text-secondary)">
+                  Job Seekers
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              background: linear-gradient(135deg, var(--secondary), #16213e);
+              border-radius: var(--radius-lg);
+              padding: 48px;
+              text-align: center;
+              color: white;
+            "
+          >
+            <div style="font-size: 64px; margin-bottom: 20px">🎯</div>
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-size: 24px;
+                font-weight: 800;
+                margin-bottom: 16px;
+              "
+            >
+              Our Vision
+            </h3>
+            <p style="color: rgba(255, 255, 255, 0.75); line-height: 1.8">
+              "India ke har talented professional ko unka dream job milna
+              chahiye aur har company ko unka perfect hire - yahi hamara vision
+              hai."
+            </p>
+            <div
+              style="
+                margin-top: 24px;
+                padding-top: 24px;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+              "
+            >
+              <div style="font-weight: 700">— JobHive Team</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Values -->
+        <div class="section-header">
+          <div class="section-tag"><i class="fas fa-heart"></i> Our Values</div>
+          <h2 class="section-title">Hamari Core Values</h2>
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+          "
+        >
+          ${[ ['fas fa-shield-alt','Trust & Transparency','Hum apne users ke
+          saath hamesha honest aur transparent rehte hain. Koi hidden fees, koi
+          fake jobs.','#EFF6FF','#2563EB'], ['fas fa-rocket','Innovation
+          First','Hum continuously apna platform improve karte hain latest
+          technology use karke best experience ke liye.','#F5F3FF','#7C3AED'],
+          ['fas fa-handshake','Community Focus','Employers aur job seekers dono
+          ke liye win-win situation create karna hamari priority
+          hai.','#ECFDF5','#059669'], ].map(([icon,title,desc,bg,color]) => `
+          <div class="card">
+            <div class="card-body" style="text-align: center">
+              <div
+                style="width:64px;height:64px;background:${bg};border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;color:${color}"
+              >
+                <i class="${icon}"></i>
+              </div>
+              <h3
+                style="
+                  font-family: var(--font-display);
+                  font-weight: 700;
+                  font-size: 18px;
+                  margin-bottom: 10px;
+                "
+              >
+                ${title}
+              </h3>
+              <p
+                style="
+                  color: var(--text-secondary);
+                  font-size: 14px;
+                  line-height: 1.7;
+                "
+              >
+                ${desc}
+              </p>
+            </div>
+          </div>
+          `).join('')}
+        </div>
+
+        <!-- Team -->
+        <div class="section-header">
+          <div class="section-tag"><i class="fas fa-users"></i> Team</div>
+          <h2 class="section-title">Meet Our Team</h2>
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+          "
+        >
+          ${[['A','Arjun Mehta','Founder & CEO','fas fa-linkedin'],['S','Sneha
+          Patel','CTO','fas fa-github'],['R','Riya Singh','Head of Design','fas
+          fa-dribbble'],['K','Karan Joshi','Head of Growth','fas
+          fa-twitter']].map(([init,name,role,social]) => `
+          <div class="card" style="text-align: center">
+            <div class="card-body">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  border-radius: 50%;
+                  background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--accent)
+                  );
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family: var(--font-display);
+                  font-size: 26px;
+                  font-weight: 800;
+                  color: white;
+                  margin: 0 auto 16px;
+                "
+              >
+                ${init}
+              </div>
+              <h4 style="font-weight: 700; margin-bottom: 4px">${name}</h4>
+              <p
+                style="
+                  font-size: 13px;
+                  color: var(--text-secondary);
+                  margin-bottom: 12px;
+                "
+              >
+                ${role}
+              </p>
+              <a href="#" style="color: var(--primary)"
+                ><i class="${social}"></i
+              ></a>
+            </div>
+          </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    <!-- END ABOUT PAGE -->
+
+    <!-- ===== PAGE: CONTACT ===== -->
+    <div id="page-contact" class="page-section" style="display: none">
+      <div class="page-hero">
+        <div class="container">
+          <div class="breadcrumb">
+            <span>Home</span>
+            <i class="fas fa-chevron-right" style="font-size: 10px"></i> Contact
+          </div>
+          <h1>Contact Us</h1>
+          <p>Koi bhi question ho? Hum yahan hain aapki help ke liye</p>
+        </div>
+      </div>
+      <div class="container" style="padding: 60px 20px">
+        <div class="contact-grid">
+          <div>
+            <h2
+              class="section-title"
+              style="text-align: left; margin-bottom: 12px"
+            >
+              Baat Karein Humse
+            </h2>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin-bottom: 40px;
+                line-height: 1.8;
+              "
+            >
+              Hum aapki sabse pehle help karne ki koshish karte hain. Humse
+              contact karein aur hum jald se jald reply karenge.
+            </p>
+
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h4 style="font-weight: 700; margin-bottom: 4px">
+                  Office Address
+                </h4>
+                <p
+                  style="
+                    color: var(--text-secondary);
+                    font-size: 14px;
+                    line-height: 1.6;
+                  "
+                >
+                  123, Sector 18, Noida<br />Uttar Pradesh - 201301, India
+                </p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fas fa-phone"></i></div>
+              <div>
+                <h4 style="font-weight: 700; margin-bottom: 4px">
+                  Phone Number
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 14px">
+                  +91 98765 43210
+                </p>
+                <p style="color: var(--text-secondary); font-size: 14px">
+                  +91 11 2345 6789
+                </p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <h4 style="font-weight: 700; margin-bottom: 4px">
+                  Email Address
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 14px">
+                  hello@jobhive.in
+                </p>
+                <p style="color: var(--text-secondary); font-size: 14px">
+                  support@jobhive.in
+                </p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div>
+                <h4 style="font-weight: 700; margin-bottom: 4px">
+                  Working Hours
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 14px">
+                  Mon-Sat: 9:00 AM - 6:00 PM
+                </p>
+                <p style="color: var(--text-secondary); font-size: 14px">
+                  Sunday: Closed
+                </p>
+              </div>
+            </div>
+
+            <div style="margin-top: 32px">
+              <h4 style="font-weight: 700; margin-bottom: 16px">
+                Social Media
+              </h4>
+              <div class="footer-social">
+                <a
+                  href="#"
+                  class="social-btn"
+                  style="background: var(--secondary)"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a
+                  href="#"
+                  class="social-btn"
+                  style="background: var(--secondary)"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a
+                  href="#"
+                  class="social-btn"
+                  style="background: var(--secondary)"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a
+                  href="#"
+                  class="social-btn"
+                  style="background: var(--secondary)"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-card">
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-weight: 800;
+                font-size: 22px;
+                margin-bottom: 8px;
+              "
+            >
+              Message Bhejo
+            </h3>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 14px;
+                margin-bottom: 28px;
+              "
+            >
+              Sabse pehle reply: 24 ghante ke andar
+            </p>
+            <form
+              id="contact-form"
+              onsubmit="
+                event.preventDefault();
+                submitContact();
+              "
+            >
+              <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px"
+              >
+                <div class="form-group">
+                  <label class="form-label">Aapka Naam *</label>
+                  <input
+                    type="text"
+                    id="c-name"
+                    class="form-control"
+                    placeholder="Full name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address *</label>
+                  <input
+                    type="email"
+                    id="c-email"
+                    class="form-control"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <select id="c-subject" class="form-control">
+                  <option value="">Select subject...</option>
+                  <option>Job Posting Inquiry</option>
+                  <option>Account Issue</option>
+                  <option>Technical Support</option>
+                  <option>Partnership</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Message *</label>
+                <textarea
+                  id="c-message"
+                  class="form-control"
+                  placeholder="Apna message yahan likhein..."
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                id="contact-btn"
+                class="btn btn-primary btn-full btn-lg"
+              >
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END CONTACT PAGE -->
+
+    <!-- ===== PAGE: DASHBOARD ===== -->
+    <div id="page-dashboard" class="page-section" style="display: none">
+      <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+          <div class="sidebar-logo">
+            <div class="nav-logo" style="text-decoration: none">
+              <div class="nav-logo-icon"><i class="fas fa-hive"></i></div>
+              <div class="nav-logo-text" style="color: white">
+                Job<span style="color: var(--primary)">Hive</span>
+              </div>
+            </div>
+          </div>
+          <nav class="sidebar-nav">
+            <div class="sidebar-section-label">Main Menu</div>
+            <a
+              class="sidebar-nav-item active"
+              data-dash="dash-home"
+              onclick="switchDashPage('dash-home')"
+              ><i class="fas fa-home"></i> Dashboard</a
+            >
+
+            <div class="sidebar-section-label" id="sl-seeker">Job Seeker</div>
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-applications"
+              onclick="switchDashPage('dash-applications')"
+              ><i class="fas fa-file-alt"></i> My Applications</a
+            >
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-saved"
+              onclick="switchDashPage('dash-saved')"
+              ><i class="fas fa-bookmark"></i> Saved Jobs</a
+            >
+            <a
+              class="sidebar-nav-item"
+              data-page="jobs"
+              onclick="navigateTo('jobs')"
+              ><i class="fas fa-search"></i> Find Jobs</a
+            >
+
+            <div class="sidebar-section-label" id="sl-employer">Employer</div>
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-post-job"
+              onclick="
+                switchDashPage('dash-post-job');
+                loadPostJobCategories();
+              "
+              ><i class="fas fa-plus-circle"></i> Post a Job</a
+            >
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-my-jobs"
+              onclick="switchDashPage('dash-my-jobs')"
+              ><i class="fas fa-briefcase"></i> My Jobs</a
+            >
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-candidates"
+              onclick="switchDashPage('dash-candidates')"
+              ><i class="fas fa-users"></i> Candidates</a
+            >
+
+            <div class="sidebar-section-label">Admin</div>
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-all-jobs"
+              onclick="switchDashPage('dash-all-jobs')"
+              ><i class="fas fa-list"></i> All Jobs</a
+            >
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-users"
+              onclick="switchDashPage('dash-users')"
+              ><i class="fas fa-user-shield"></i> All Users</a
+            >
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-messages"
+              onclick="switchDashPage('dash-messages')"
+              ><i class="fas fa-envelope"></i> Messages</a
+            >
+
+            <div class="sidebar-section-label">Account</div>
+            <a
+              class="sidebar-nav-item"
+              data-dash="dash-profile"
+              onclick="switchDashPage('dash-profile')"
+              ><i class="fas fa-user"></i> My Profile</a
+            >
+            <a class="sidebar-nav-item" onclick="logout()"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </nav>
+        </aside>
+
+        <!-- Dashboard Main -->
+        <div class="dashboard-main">
+          <div class="dashboard-topbar">
+            <div>
+              <h2
+                style="
+                  font-family: var(--font-display);
+                  font-weight: 800;
+                  font-size: 22px;
+                "
+                id="dash-greeting"
+              >
+                Dashboard
+              </h2>
+              <p
+                style="font-size: 13px; color: var(--text-secondary)"
+                id="dash-date"
+              ></p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px">
+              <button
+                class="btn btn-ghost btn-sm"
+                data-page="home"
+                onclick="navigateTo('home')"
+              >
+                <i class="fas fa-home"></i> Home
+              </button>
+              <div class="nav-user">
+                <div class="nav-user-avatar" id="dash-avatar">U</div>
+                <span
+                  id="dash-username"
+                  style="font-size: 14px; font-weight: 600"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-content">
+            <!-- HOME DASH PAGE -->
+            <div id="dash-home" class="dashboard-page active">
+              <div class="stats-grid" id="dash-stats">
+                <div class="loading-overlay" style="grid-column: 1/-1">
+                  <div class="spinner spinner-dark"></div>
+                </div>
+              </div>
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>
+                    <i
+                      class="fas fa-clock"
+                      style="color: var(--primary); margin-right: 8px"
+                    ></i
+                    >Recent Activity
+                  </h3>
+                </div>
+                <div id="dash-recent">
+                  <div class="loading-overlay">
+                    <div class="spinner spinner-dark"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- APPLICATIONS PAGE -->
+            <div id="dash-applications" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>
+                    <i
+                      class="fas fa-file-alt"
+                      style="color: var(--primary); margin-right: 8px"
+                    ></i
+                    >My Applications
+                  </h3>
+                </div>
+                <p style="color: var(--text-secondary)">
+                  Login karo aur apni applications yahan dekhein. Dashboard home
+                  se load ho jaata hai.
+                </p>
+              </div>
+            </div>
+
+            <!-- POST JOB PAGE -->
+            <div id="dash-post-job" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>
+                    <i
+                      class="fas fa-plus-circle"
+                      style="color: var(--primary); margin-right: 8px"
+                    ></i
+                    >Post a New Job
+                  </h3>
+                </div>
+                <form
+                  id="post-job-form"
+                  onsubmit="
+                    event.preventDefault();
+                    submitPostJob();
+                  "
+                >
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: 1fr 1fr;
+                      gap: 20px;
+                    "
+                  >
+                    <div class="form-group" style="grid-column: 1/-1">
+                      <label class="form-label">Job Title *</label>
+                      <input
+                        type="text"
+                        name="title"
+                        class="form-control"
+                        placeholder="e.g. Senior PHP Developer"
+                        required
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Job Category</label>
+                      <select
+                        name="category_id"
+                        id="post-category"
+                        class="form-control"
+                      >
+                        <option value="">Select Category</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Job Type</label>
+                      <select name="job_type" class="form-control">
+                        <option>Full-time</option>
+                        <option>Part-time</option>
+                        <option>Contract</option>
+                        <option>Freelance</option>
+                        <option>Internship</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Work Mode</label>
+                      <select name="work_mode" class="form-control">
+                        <option>On-site</option>
+                        <option>Remote</option>
+                        <option>Hybrid</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Experience Level</label>
+                      <select name="experience_level" class="form-control">
+                        <option>Fresher</option>
+                        <option>1-2 Years</option>
+                        <option>3-5 Years</option>
+                        <option>5+ Years</option>
+                        <option>10+ Years</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Location</label>
+                      <input
+                        type="text"
+                        name="location"
+                        class="form-control"
+                        placeholder="e.g. Delhi, India"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Min Salary (₹/month)</label>
+                      <input
+                        type="number"
+                        name="salary_min"
+                        class="form-control"
+                        placeholder="e.g. 50000"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Max Salary (₹/month)</label>
+                      <input
+                        type="number"
+                        name="salary_max"
+                        class="form-control"
+                        placeholder="e.g. 100000"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Number of Vacancies</label>
+                      <input
+                        type="number"
+                        name="vacancies"
+                        class="form-control"
+                        value="1"
+                        min="1"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Application Deadline</label>
+                      <input type="date" name="deadline" class="form-control" />
+                    </div>
+                    <div class="form-group" style="grid-column: 1/-1">
+                      <label class="form-label">Skills Required</label>
+                      <input
+                        type="text"
+                        name="skills_required"
+                        class="form-control"
+                        placeholder="e.g. PHP, MySQL, Laravel, JavaScript (comma separated)"
+                      />
+                    </div>
+                    <div class="form-group" style="grid-column: 1/-1">
+                      <label class="form-label">Job Description *</label>
+                      <textarea
+                        name="description"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Job ke baare mein detail mein likhein..."
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="form-group" style="grid-column: 1/-1">
+                      <label class="form-label">Requirements</label>
+                      <textarea
+                        name="requirements"
+                        class="form-control"
+                        rows="4"
+                        placeholder="Candidate ke liye requirements..."
+                      ></textarea>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    id="post-job-btn"
+                    class="btn btn-primary btn-lg"
+                  >
+                    <i class="fas fa-plus"></i> Post Job
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- OTHER DASH PAGES -->
+            <div id="dash-my-jobs" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>My Posted Jobs</h3>
+                </div>
+                <p style="color: var(--text-secondary)">
+                  Dashboard home se recent jobs dekhein ya naya job post karein.
+                </p>
+              </div>
+            </div>
+            <div id="dash-candidates" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>Candidates / Applicants</h3>
+                </div>
+                <p style="color: var(--text-secondary)">
+                  Recent applications dashboard home pe available hain.
+                </p>
+              </div>
+            </div>
+            <div id="dash-saved" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header"><h3>Saved Jobs</h3></div>
+                <p style="color: var(--text-secondary)">
+                  Jobs browse karte waqt bookmark icon click karke save karo.
+                </p>
+              </div>
+            </div>
+            <div id="dash-all-jobs" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>All Jobs (Admin)</h3>
+                </div>
+                <p style="color: var(--text-secondary)">
+                  Admin stats dashboard home pe hain.
+                </p>
+              </div>
+            </div>
+            <div id="dash-users" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>All Users (Admin)</h3>
+                </div>
+                <p style="color: var(--text-secondary)">
+                  Admin panel - database direct dekho phfilhal.
+                </p>
+              </div>
+            </div>
+            <div id="dash-messages" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header">
+                  <h3>Contact Messages</h3>
+                </div>
+                <p style="color: var(--text-secondary)">
+                  Contact form se aaye messages yahan show honge.
+                </p>
+              </div>
+            </div>
+            <div id="dash-profile" class="dashboard-page">
+              <div class="dashboard-section">
+                <div class="dashboard-section-header"><h3>My Profile</h3></div>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                  "
+                >
+                  <div class="form-group">
+                    <label class="form-label">Full Name</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      placeholder="Aapka naam"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email</label
+                    ><input
+                      type="email"
+                      class="form-control"
+                      placeholder="Email address"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone</label
+                    ><input
+                      type="tel"
+                      class="form-control"
+                      placeholder="Phone number"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Location</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      placeholder="City, State"
+                    />
+                  </div>
+                  <div class="form-group" style="grid-column: 1/-1">
+                    <label class="form-label">Skills</label
+                    ><input
+                      type="text"
+                      class="form-control"
+                      placeholder="Aapke skills (comma separated)"
+                    />
+                  </div>
+                  <div class="form-group" style="grid-column: 1/-1">
+                    <label class="form-label">Bio</label
+                    ><textarea
+                      class="form-control"
+                      rows="3"
+                      placeholder="Apne baare mein kuch batao..."
+                    ></textarea>
+                  </div>
+                </div>
+                <button class="btn btn-primary">
+                  <i class="fas fa-save"></i> Save Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END DASHBOARD PAGE -->
+
+    <!-- ============================================================
+     MODALS
+============================================================ -->
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">👋 JobHive mein Welcome!</h2>
+          <button class="modal-close" onclick="closeModal('auth-modal')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-tabs">
+            <button
+              class="modal-tab active"
+              data-tab="login"
+              onclick="switchAuthTab('login')"
+            >
+              Login
+            </button>
+            <button
+              class="modal-tab"
+              data-tab="register"
+              onclick="switchAuthTab('register')"
+            >
+              Register
+            </button>
+          </div>
+
+          <!-- Login Form -->
+          <div id="login-form">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input
+                type="email"
+                id="login-email"
+                class="form-control"
+                placeholder="your@email.com"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                id="login-password"
+                class="form-control"
+                placeholder="Your password"
+              />
+            </div>
+            <div style="text-align: right; margin-bottom: 20px">
+              <a href="#" style="color: var(--primary); font-size: 13px"
+                >Password bhool gaye?</a
+              >
+            </div>
+            <button
+              class="btn btn-primary btn-full btn-lg"
+              id="login-btn"
+              onclick="submitLogin()"
+            >
+              <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <p
+              style="
+                text-align: center;
+                font-size: 13px;
+                color: var(--text-secondary);
+                margin-top: 16px;
+              "
+            >
+              Demo: admin@jobportal.com / password
+            </p>
+          </div>
+
+          <!-- Register Form -->
+          <div id="register-form" class="hidden">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input
+                type="text"
+                id="reg-name"
+                class="form-control"
+                placeholder="Aapka poora naam"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input
+                type="email"
+                id="reg-email"
+                class="form-control"
+                placeholder="your@email.com"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input
+                type="tel"
+                id="reg-phone"
+                class="form-control"
+                placeholder="+91 98765 43210"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password *</label>
+              <input
+                type="password"
+                id="reg-password"
+                class="form-control"
+                placeholder="Strong password"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Register As</label>
+              <select id="reg-role" class="form-control">
+                <option value="seeker">
+                  🔍 Job Seeker - Main job dhundna chahta/chahti hoon
+                </option>
+                <option value="employer">
+                  🏢 Employer - Main jobs post karna chahta/chahti hoon
+                </option>
+              </select>
+            </div>
+            <button
+              class="btn btn-primary btn-full btn-lg"
+              id="register-btn"
+              onclick="submitRegister()"
+            >
+              <i class="fas fa-user-plus"></i> Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLY MODAL -->
+    <div class="modal-overlay" id="apply-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">
+            <i class="fas fa-paper-plane" style="color: var(--primary)"></i>
+            Apply for Job
+          </h2>
+          <button class="modal-close" onclick="closeModal('apply-modal')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Cover Letter (Optional)</label>
+            <textarea
+              id="cover-letter"
+              class="form-control"
+              rows="6"
+              placeholder="Apne baare mein employer ko batao...&#10;&#10;Aap kyon is role ke liye perfect hain?&#10;Apna relevant experience share karo.&#10;Koi bhi important cheez add karo jo aapko stand out kare."
+            ></textarea>
+          </div>
+          <div
+            style="
+              background: var(--border-light);
+              border-radius: var(--radius);
+              padding: 16px;
+              margin-bottom: 20px;
+              font-size: 13px;
+              color: var(--text-secondary);
+            "
+          >
+            <i
+              class="fas fa-info-circle"
+              style="color: var(--primary); margin-right: 6px"
+            ></i>
+            Aapka profile automatically submit hoga application ke saath.
+          </div>
+          <button
+            class="btn btn-primary btn-full btn-lg"
+            id="apply-submit-btn"
+            onclick="submitApplication()"
+          >
+            <i class="fas fa-paper-plane"></i> Submit Application
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+     FOOTER
+============================================================ -->
+    <footer>
+      <div class="footer-main">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="nav-logo" style="margin-bottom: 0">
+                <div class="nav-logo-icon"><i class="fas fa-hive"></i></div>
+                <div class="nav-logo-text" style="color: white">
+                  Job<span>Hive</span>
+                </div>
+              </div>
+              <p>
+                India ka #1 job portal. Hum talented professionals ko unka dream
+                job dhundne mein aur companies ko best talent hire karne mein
+                help karte hain.
+              </p>
+              <div class="footer-social">
+                <a href="#" class="social-btn"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a href="#" class="social-btn"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" class="social-btn"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="social-btn"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="#" class="social-btn"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </div>
+            </div>
+            <div class="footer-col">
+              <h4>Quick Links</h4>
+              <a class="footer-link" data-page="home">Home</a>
+              <a class="footer-link" data-page="jobs">Browse Jobs</a>
+              <a class="footer-link" data-page="about">About Us</a>
+              <a class="footer-link" data-page="contact">Contact</a>
+              <a class="footer-link" onclick="openModal('auth-modal')"
+                >Login / Register</a
+              >
+            </div>
+            <div class="footer-col">
+              <h4>Job Categories</h4>
+              <a class="footer-link" onclick="filterByCategory(1, 'IT')"
+                >Information Technology</a
+              >
+              <a class="footer-link" onclick="filterByCategory(2, 'Marketing')"
+                >Marketing & Sales</a
+              >
+              <a class="footer-link" onclick="filterByCategory(3, 'Finance')"
+                >Finance</a
+              >
+              <a class="footer-link" onclick="filterByCategory(4, 'Healthcare')"
+                >Healthcare</a
+              >
+              <a class="footer-link" onclick="filterByCategory(7, 'Design')"
+                >Design & Creative</a
+              >
+            </div>
+            <div class="footer-col">
+              <h4>Contact Info</h4>
+              <a class="footer-link"
+                ><i
+                  class="fas fa-map-marker-alt"
+                  style="color: var(--primary); margin-right: 8px"
+                ></i
+                >Noida, UP - 201301</a
+              >
+              <a class="footer-link"
+                ><i
+                  class="fas fa-phone"
+                  style="color: var(--primary); margin-right: 8px"
+                ></i
+                >+91 98765 43210</a
+              >
+              <a class="footer-link"
+                ><i
+                  class="fas fa-envelope"
+                  style="color: var(--primary); margin-right: 8px"
+                ></i
+                >hello@jobhive.in</a
+              >
+              <div style="margin-top: 16px">
+                <div
+                  style="
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: rgba(255, 255, 255, 0.5);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Download App
+                </div>
+                <div style="display: flex; gap: 8px">
+                  <a
+                    href="#"
+                    style="
+                      background: rgba(255, 255, 255, 0.1);
+                      border: 1px solid rgba(255, 255, 255, 0.2);
+                      border-radius: 8px;
+                      padding: 8px 12px;
+                      font-size: 12px;
+                      color: white;
+                      text-decoration: none;
+                      display: flex;
+                      align-items: center;
+                      gap: 6px;
+                    "
+                    ><i class="fab fa-google-play"></i> Play Store</a
+                  >
+                  <a
+                    href="#"
+                    style="
+                      background: rgba(255, 255, 255, 0.1);
+                      border: 1px solid rgba(255, 255, 255, 0.2);
+                      border-radius: 8px;
+                      padding: 8px 12px;
+                      font-size: 12px;
+                      color: white;
+                      text-decoration: none;
+                      display: flex;
+                      align-items: center;
+                      gap: 6px;
+                    "
+                    ><i class="fab fa-apple"></i> App Store</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="footer-bottom">
+          <p>© 2025 JobHive. Sab rights reserved. Made with ❤️ in India.</p>
+          <div style="display: flex; gap: 16px">
+            <a
+              href="#"
+              style="
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 13px;
+                text-decoration: none;
+              "
+              >Privacy Policy</a
+            >
+            <a
+              href="#"
+              style="
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 13px;
+                text-decoration: none;
+              "
+              >Terms of Service</a
+            >
+            <a
+              href="#"
+              style="
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 13px;
+                text-decoration: none;
+              "
+              >Cookie Policy</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/main.js"></script>
+    <script>
+      // Page visibility management
+      document.querySelectorAll(".page-section").forEach((p) => {
+        p.style.display = p.classList.contains("active") ? "block" : "none";
+      });
+
+      // Override navigateTo for display management
+      const _origNav = navigateTo;
+      navigateTo = function (page, pushState = true) {
+        document.querySelectorAll(".page-section").forEach((p) => {
+          p.style.display = "none";
+          p.classList.remove("active");
+        });
+        const target = document.getElementById("page-" + page);
+        if (target) {
+          target.style.display = "block";
+          target.classList.add("active");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          document
+            .querySelectorAll(".nav-link")
+            .forEach((l) =>
+              l.classList.toggle("active", l.dataset.page === page),
+            );
+          currentPage = page;
+          if (pushState) history.pushState({ page }, "", "#" + page);
+          if (page === "jobs") {
+            jobsOffset = 0;
+            loadJobs();
+          }
+          if (page === "dashboard") {
+            loadDashboard();
+            const now = new Date();
+            document.getElementById("dash-greeting").textContent =
+              `Namaste, ${sessionData?.name?.split(" ")[0] || "User"}! 👋`;
+            document.getElementById("dash-date").textContent =
+              now.toLocaleDateString("en-IN", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              });
+            if (sessionData?.name) {
+              document.getElementById("dash-username").textContent =
+                sessionData.name.split(" ")[0];
+              document.getElementById("dash-avatar").textContent =
+                sessionData.name.charAt(0).toUpperCase();
+            }
+          }
+        }
+      };
+
+      // Mobile nav toggle
+      function toggleMobileNav() {
+        const nav = document.getElementById("mobile-nav");
+        nav.style.display = nav.style.display === "none" ? "block" : "none";
+      }
+
+      // Load categories into filter select on jobs page
+      async function loadJobFilterCategories() {
+        const res = await fetch("php/api.php?action=get_categories");
+        const data = await res.json();
+        if (data.success) {
+          const sel = document.getElementById("filter-category");
+          sel.innerHTML =
+            '<option value="">All Categories</option>' +
+            data.categories
+              .map((c) => `<option value="${c.id}">${c.name}</option>`)
+              .join("");
+        }
+      }
+
+      // Setup all data-page links
+      document.querySelectorAll("[data-page]").forEach((el) => {
+        el.addEventListener("click", function (e) {
+          if (
+            this.tagName === "A" ||
+            this.tagName === "BUTTON" ||
+            this.tagName === "DIV"
+          ) {
+            e.preventDefault();
+            navigateTo(this.dataset.page);
+          }
+        });
+      });
+
+      // Load filter categories when needed
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(loadJobFilterCategories, 500);
+      });
+
+      window.addEventListener("popstate", (e) => {
+        if (e.state?.page) navigateTo(e.state.page, false);
+      });
+
+      // Initial page
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        setTimeout(() => navigateTo(hash, false), 100);
+      }
+    </script>
+  </body>
+</html>
